@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#101813" />
+  <title>Emberwild — The Long Green</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="game-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Emberwild home"><span class="brand-mark">✳</span><span>EMBER<span class="brand-soft">WILD</span></span></a>
+      <div class="world-label"><span class="live-dot"></span><span>THE LONG GREEN</span><i>·</i><span id="day-label">DAY 01</span></div>
+      <div class="top-actions"><button class="icon-btn" id="sound-btn" title="Toggle ambience">♫</button><button class="icon-btn" id="save-btn" title="Save game">⌁</button><button class="icon-btn" id="help-btn" title="Controls">?</button></div>
+    </header>
+
+    <section class="game-layout">
+      <aside class="left-rail">
+        <section class="profile-card panel">
+          <div class="profile-top"><div class="avatar" id="avatar-icon">✦</div><div><div class="eyebrow" id="class-name">WAYFARER</div><div class="hero-name">Ash Rowan</div></div><button class="tiny-button" id="class-change" title="Change class">↻</button></div>
+          <div class="level-line"><span>LEVEL <b id="level">01</b></span><span id="xp-label">0 / 40 XP</span></div>
+          <div class="xp-track"><span id="xp-bar"></span></div>
+          <div class="stat-row"><span>❤ <b id="health-text">100 / 100</b></span><span>⚔ <b id="power-text">12</b></span></div>
+          <div class="health-track"><span id="health-bar"></span></div>
+        </section>
+
+        <section class="panel resource-panel">
+          <div class="section-heading"><span>PACK</span><span class="subtle">RESOURCES</span></div>
+          <div class="resource-grid">
+            <div class="resource"><span class="res-icon wood">♠</span><span>Timber</span><b id="wood-count">0</b></div>
+            <div class="resource"><span class="res-icon stone">◆</span><span>Stone</span><b id="stone-count">0</b></div>
+            <div class="resource"><span class="res-icon berry">●</span><span>Moonberry</span><b id="berry-count">0</b></div>
+            <div class="resource"><span class="res-icon essence">✧</span><span>Essence</span><b id="essence-count">0</b></div>
+          </div>
+          <button class="text-action" id="craft-open">OPEN CRAFTING <span>↗</span></button>
+        </section>
+
+        <section class="panel objective-panel">
+          <div class="section-heading"><span>FIELD NOTES</span><span class="note-pin">✳</span></div>
+          <p id="objective">The forest is quiet. Gather what you need, then make this place yours.</p>
+          <div class="objective-progress"><span id="objective-progress">First steps · Explore freely</span><span class="quest-check">◌</span></div>
+        </section>
+
+        <section class="panel companion-panel" id="companion-panel">
+          <div class="section-heading"><span>COMPANION</span><span class="subtle" id="companion-state">NOT FOUND</span></div>
+          <div class="companion-body"><div class="companion-avatar" id="companion-icon">?</div><div><strong id="companion-name">A friend out there</strong><small id="companion-desc">A little kindness goes a long way.</small></div></div>
+          <button class="text-action recruit-button" id="recruit-btn">RECRUIT · 3 MOONBERRIES <span>＋</span></button>
+        </section>
+
+        <div class="rail-footer"><span class="save-indicator"><i></i><span id="save-status">ALL PROGRESS SAVED</span></span><span>v1.0.4</span></div>
+      </aside>
+
+      <section class="world-column">
+        <div class="world-frame">
+          <canvas id="game" aria-label="Top-down world of Emberwild"></canvas>
+          <div class="map-coordinates"><span id="coords">X 000 · Y 000</span><span>WILDERNESS <i>UNMAPPED</i></span></div>
+          <div class="world-hint" id="world-hint"><span>⌖</span> WANDER FAR. THE WILD IS YOURS.</div>
+          <div class="toast" id="toast"></div>
+          <div class="interact-prompt" id="interact-prompt"><kbd>E</kbd><span>Gather</span></div>
+          <div class="combat-flash" id="combat-flash"></div>
+          <div class="mobile-controls" aria-label="Touch controls"><div class="dpad"><button data-move="up">▲</button><div><button data-move="left">◀</button><button data-move="down">▼</button><button data-move="right">▶</button></div></div><button class="touch-action" id="touch-attack">⚔<small>HIT</small></button><button class="touch-action gather-touch" id="touch-gather">✦<small>USE</small></button></div>
+          <div class="start-screen" id="start-screen">
+            <div class="intro-card">
+              <div class="intro-mark">✳</div><div class="eyebrow">A WILDERNESS TO CALL YOURS</div>
+              <h1>Find your<br><em>own way.</em></h1>
+              <p>Beyond the old road, the forest remembers no kings. Gather, build, and make a home among the wild things.</p>
+              <div class="class-pick-label">CHOOSE YOUR PATH</div>
+              <div class="class-options">
+                <button class="class-option selected" data-class="ranger"><span class="class-glyph">➶</span><span><b>Ranger</b><small>Quick · ranged</small></span><i>✓</i></button>
+                <button class="class-option" data-class="guardian"><span class="class-glyph">⬟</span><span><b>Guardian</b><small>Sturdy · close combat</small></span><i>✓</i></button>
+                <button class="class-option" data-class="mystic"><span class="class-glyph">✧</span><span><b>Mystic</b><small>Arcane · high power</small></span><i>✓</i></button>
+              </div>
+              <button class="primary-button" id="begin-btn">ENTER THE WILD <span>→</span></button>
+              <div class="continue-note" id="continue-note">A saved journey waits for you.</div>
+            </div>
+          </div>
+          <div class="modal-backdrop" id="modal-backdrop"><div class="modal panel" id="modal"></div></div>
+        </div>
+        <div class="bottom-bar">
+          <div class="controls-legend"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> MOVE</span><span><kbd>SPACE</kbd> ATTACK</span><span><kbd>E</kbd> GATHER</span><span><kbd>B</kbd> BUILD</span><span><kbd>C</kbd> CRAFT</span></div>
+          <div class="hotbar"><button class="hot-slot active" data-slot="0"><span>⚔</span><small>1</small><i>Strike</i></button><button class="hot-slot" data-slot="1"><span>✦</span><small>2</small><i>Heal</i></button><button class="hot-slot" data-slot="2"><span>⌂</span><small>3</small><i>Build</i></button><button class="hot-slot" data-slot="3"><span>◉</span><small>4</small><i>Flare</i></button></div>
+        </div>
+      </section>
+    </section>
+    <div class="mobile-footer"><button id="mobile-craft">✧ <span>Craft</span></button><button id="mobile-build">⌂ <span>Build</span></button><button id="mobile-save">⌁ <span>Save</span></button></div>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
